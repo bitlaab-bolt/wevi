@@ -1,0 +1,3 @@
+Static Library Version
+
+libwebview.a     [v0.12.0]

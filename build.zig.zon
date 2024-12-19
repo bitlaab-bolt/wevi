@@ -1,0 +1,14 @@
+.{
+    .name = "wevi",
+    .version = "0.1.0",
+    .dependencies = .{},
+    .paths = .{
+        "libs",
+        "src",
+        "build.zig",
+        "build.zig.zon",
+        "CHANGELOG.md",
+        "LICENSE",
+        "README.md",
+    },
+}
