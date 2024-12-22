@@ -36,6 +36,11 @@ pub fn build(b: *std.Build) void {
                     pkg.addObjectFile(b.path("libs/windows/libwebview.a"));
 
                     exe.addObjectFile(b.path("libs/windows/libwebview.a"));
+                    exe.linkSystemLibrary("Ole32");
+                    exe.linkSystemLibrary("Shell32");
+                    exe.linkSystemLibrary("Kernel32");
+
+
                     exe.linkSystemLibrary("ole32");
                     exe.linkSystemLibrary("shlwapi");
                     exe.linkSystemLibrary("version");
