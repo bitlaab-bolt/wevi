@@ -40,9 +40,9 @@ pub fn build(b: *std.Build) void {
                     exe.addObjectFile(b.path("libs/windows/libwebview.a"));
                     exe.linkSystemLibrary("ole32");
                     exe.linkSystemLibrary("shlwapi");
-                    //exe.linkSystemLibrary("version");
-                    //exe.linkSystemLibrary("advapi32");
-                    //exe.linkSystemLibrary("shell32");
+                    exe.linkSystemLibrary("version");
+                    exe.linkSystemLibrary("advapi32");
+                    exe.linkSystemLibrary("shell32");
                     exe.linkSystemLibrary("user32");
                 },
                 else => @panic("Unsupported architecture!")
