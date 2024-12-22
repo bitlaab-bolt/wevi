@@ -31,8 +31,6 @@ pub fn build(b: *std.Build) void {
     // Adding cross-platform dependency
     switch (target.query.os_tag orelse builtin.os.tag) {
         .windows => {
-            exe.linkLibCpp();
-
             switch (target.query.cpu_arch orelse builtin.cpu.arch) {
                 .x86_64 => {
                     pkg.addObjectFile(b.path("libs/windows/libwebview.a"));
