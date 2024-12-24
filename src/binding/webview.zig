@@ -58,6 +58,7 @@ pub fn terminate(win: Window) Error!void {
     if (rv != 0) return err(rv);
 }
 
+/// no needed when using glfw
 pub fn dispatch(win: Window, cbf: Callback, arg: Anything) Error!void {
     const rv = webview.webview_dispatch(win, cbf, arg);
     if (rv != 0) return err(rv);
@@ -117,16 +118,32 @@ pub fn evalJs(win: Window, script: []const u8) Error!void {
     if (rv != 0) return err(rv);
 }
 
-pub fn bind() void {
 
+pub const BindCallback = ?*const fn([*c]const u8, [*c]const u8, Anything) callconv(.c) void;
+
+pub fn bind(
+    win: Window,
+    name: []const u8,
+    cbf: BindCallback,
+    arg: Anything
+) Error!void {
+    const rv = webview.webview_bind(win, name.ptr, cbf, arg);
+    if (rv != 0) return err(rv);
 }
 
-pub fn unbind() void {
-
+pub fn unbind(win: Window, name: []const u8,) Error!void {
+    const rv = webview.webview_unbind(win, name.ptr);
+    if (rv != 0) return err(rv);
 }
 
-pub fn resp() void {
-
+pub fn @"return"(
+    win: Window,
+    bind_id: []const u8,
+    status: i32,
+    result: []const u8
+) !void {
+    const rv = webview.webview_return(win, bind_id.ptr, status, result.ptr);
+    if (rv != 0) return err(rv);
 }
 
 pub fn version() Version {

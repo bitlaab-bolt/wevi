@@ -34,19 +34,12 @@ pub fn build(b: *std.Build) void {
             switch (target.query.cpu_arch orelse builtin.cpu.arch) {
                 .x86_64 => {
                     pkg.addObjectFile(b.path("libs/windows/libwebview.a"));
+                    pkg.linkSystemLibrary("ole32", .{});
+                    pkg.linkSystemLibrary("shlwapi", .{});
 
                     exe.addObjectFile(b.path("libs/windows/libwebview.a"));
-                    exe.linkSystemLibrary("Ole32");
-                    exe.linkSystemLibrary("Shell32");
-                    exe.linkSystemLibrary("Kernel32");
-
-
                     exe.linkSystemLibrary("ole32");
                     exe.linkSystemLibrary("shlwapi");
-                    exe.linkSystemLibrary("version");
-                    exe.linkSystemLibrary("advapi32");
-                    exe.linkSystemLibrary("shell32");
-                    exe.linkSystemLibrary("user32");
                 },
                 else => @panic("Unsupported architecture!")
             }
@@ -65,6 +58,10 @@ pub fn build(b: *std.Build) void {
         },
         else => @panic("Codebase is not tailored for this platform!")
     }
+
+    // Adding External Dependency
+    const jsonic = b.dependency("jsonic", .{});
+    exe.root_module.addImport("jsonic", jsonic.module("jsonic"));
 
     b.installArtifact(exe);
 

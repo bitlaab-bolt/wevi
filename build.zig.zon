@@ -1,14 +1,19 @@
 .{
     .name = "wevi",
     .version = "0.1.0",
-    .dependencies = .{},
+    .dependencies = .{
+        .jsonic = .{
+            .url = "https://github.com/bitlaab-bolt/jsonic/archive/refs/heads/main.zip",
+            .hash = "12206373262c1b3bde82f2d328004245ce8f37c79a9f6775997bcd0e2b47f1234651",
+        },
+    },
     .paths = .{
         "libs",
         "src",
-        "build.zig",
+        "build.zig", 
         "build.zig.zon",
         "CHANGELOG.md",
         "LICENSE",
-        "README.md",
-    },
+        "README.md"
+    }
 }

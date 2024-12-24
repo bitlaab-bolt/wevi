@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Document</title>
+</head>
+<body>
+    <h1>Hello world!</h1>
+    <button id="btn">Click</button>
+    <script>
+        document.getElementById('btn').addEventListener('click', async () => {
+            try {
+                const res = await window.greet('john', 23);
+                console.log(res);
+            } catch (error) {
+                console.error('Error occurred:', error);
+            }
+        })
+    </script>
+</body>
+</html>

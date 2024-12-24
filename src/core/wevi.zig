@@ -52,6 +52,28 @@ pub fn evalJs(self: *Self, script: []const u8) !void {
     try webview.evalJs(self.window, script);
 }
 
+pub fn bind(
+    self: *Self,
+    name: []const u8,
+    cbf: webview.BindCallback,
+    arg: webview.Anything
+) !void {
+    try webview.bind(self.window, name, cbf, arg);
+}
+
+pub fn unbind(self: *Self, name: []const u8,) !void {
+    try webview.unbind(self.window, name);
+}
+
+pub fn response(
+    self: *Self,
+    bind_id: []const u8,
+    status_code: i32,
+    result: []const u8
+) !void {
+    try webview.@"return"(self.window, bind_id, status_code, result);
+}
+
 pub fn version() webview.Version {
     return webview.version();
 }
