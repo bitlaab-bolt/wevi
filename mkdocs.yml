@@ -1,5 +1,5 @@
 site_name: wevi v0.1.0
-site_url: https://mydomain.org/lime
+site_url: https://mydomain.org/wevi
 nav:
   - Getting Started: index.md
   - How to Install: installation.md

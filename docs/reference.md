@@ -2,44 +2,76 @@
 
 Make sure to checkout code comments for additional details.
 
-## libspng
+## [webview](https://github.com/webview/webview)
 
-[libspng](https://github.com/randy408/libspng/) (simple png) is a C library for reading and writing Portable Network Graphics (PNG) format files with a focus on security and ease of use.
+Tiny cross-platform webview library for C/C++. Uses WebKit (GTK/Cocoa) and Edge WebView2 (Windows).
 
-**Limes exposes underlying `libspng` APIs to `lime.Api.spng`.**
+**Wevi exposes underlying `webview` APIs to `wevi.Api.webview`.**
 
-### New Context
+### Create Webview Instance
 
-`spng.ctxNew()` maps to `spng_ctx_new()` in libspng.
+`webview.create()` maps to `webview_create()` in webview.
 
-### Free Context
+### Destroy Webview Instance
 
-`spng.ctxFree()` maps to `spng_ctx_free()` in libspng.
+`webview.destroy()` maps to `webview_destroy()` in webview.
 
-### Error Message
+### Run Main Loop
 
-`spng.strError()` maps to `spng_strerror()` in libspng.
+`webview.run()` maps to `webview_run()` in webview.
 
-### Open File
+### Stop the Main Loop
 
-`spng.open()` maps to `fopen()`.
+`webview.terminate()` maps to `webview_terminate()` in webview.
 
-### Close File
+### Invoke Function on Run/Event Loop
 
-`spng.close()` maps to `fclose()`.
+`webview.dispatch()` maps to `webview_dispatch()` in webview.
 
-### Set Png File
+### Native Window Handle
 
-`spng.setPngFile()` maps to `spng_set_png_file()` in libspng.
+`webview.getWindow()` maps to `webview_get_window()` in webview.
 
-### Get Header Info
+### Native Handle of Choice
 
-`spng.getIhdr()` maps to `spng_get_ihdr()` in libspng.
+`webview.getNativeHandle()` maps to `webview_get_native_handle()` in webview.
 
-### Decode Image Size
+### Updates Window Title
 
-`spng.decodeImageSize()` maps to `spng_decoded_image_size()` in libspng.
+`webview.setTitle()` maps to `webview_set_title()` in webview.
 
-### Decode Image
+### Updates Window Size
 
-`spng.decodeImage()` maps to `spng_decode_image()` in libspng.
+`webview.setSize()` maps to `webview_set_size()` in webview.
+
+### Loads HTML Content
+
+`webview.setHtml()` maps to `webview_set_html()` in webview.
+
+### Navigates Webview Page
+
+`webview.navigate()` maps to `webview_navigate()` in webview.
+
+### Evaluates Arbitrary JS Code
+
+`webview.evalJs()` maps to `webview_eval()` in webview.
+
+### Injects JS Code
+
+`webview.runJs()` maps to `webview_init()` in webview.
+
+### Binds Backend Function
+
+`webview.bind()` maps to `webview_bind()` in webview.
+
+### Unbinds Backend Function
+
+`webview.unbind()` maps to `webview_unbind()` in webview.
+
+### Backend Response to JS Code
+
+`webview.@"return"()` maps to `webview_return()` in webview.
+
+### Version Information
+
+`webview.version()` maps to `webview_version()` in webview.
