@@ -18,4 +18,4 @@ All of Wevi's dependencies are linked as static libraries. No additional steps a
 
 ## Documentation
 
-For most up-to-date documentation see - [**Wevi Documentation**](https://bitlaabbolt.web.app/).
+For most up-to-date documentation see - [**Wevi Documentation**](https://bitlaabwevi.web.app/).
