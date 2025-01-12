@@ -26,20 +26,27 @@ pub fn build(b: *std.Build) void {
     });
 
     exe.addIncludePath(b.path("libs/include"));
-    exe.linkLibCpp();
 
     // Adding cross-platform dependency
     switch (target.query.os_tag orelse builtin.os.tag) {
         .windows => {
             switch (target.query.cpu_arch orelse builtin.cpu.arch) {
                 .x86_64 => {
-                    pkg.addObjectFile(b.path("libs/windows/libwebview.a"));
+                    pkg.addObjectFile(b.path("libs/windows/webview.lib"));
                     pkg.linkSystemLibrary("ole32", .{});
+                    pkg.linkSystemLibrary("user32", .{});
+                    pkg.linkSystemLibrary("shell32", .{});
                     pkg.linkSystemLibrary("shlwapi", .{});
+                    pkg.linkSystemLibrary("version", .{});
+                    pkg.linkSystemLibrary("advapi32", .{});
 
-                    exe.addObjectFile(b.path("libs/windows/libwebview.a"));
+                    exe.addObjectFile(b.path("libs/windows/webview.lib"));
                     exe.linkSystemLibrary("ole32");
+                    exe.linkSystemLibrary("user32");
+                    exe.linkSystemLibrary("shell32");
                     exe.linkSystemLibrary("shlwapi");
+                    exe.linkSystemLibrary("version");
+                    exe.linkSystemLibrary("advapi32");
                 },
                 else => @panic("Unsupported architecture!")
             }

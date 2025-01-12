@@ -96,7 +96,8 @@ pub const Hint = enum(u32) {
 
 /// # Updates the Size of the Native Window
 pub fn setSize(win: Window, width: u16, height: u16, hint: Hint) Error!void {
-    const rv = webview.webview_set_size(win, width, height, @intFromEnum(hint));
+    const w_hint: c_int = @intCast(@intFromEnum(hint));
+    const rv = webview.webview_set_size(win, width, height, w_hint);
     if (rv != 0) return @"error"(rv);
 }
 

@@ -35,3 +35,6 @@ const wevi = b.dependency("wevi", .{});
 exe.root_module.addImport("wevi", wevi.module("wevi"));
 lib.root_module.addImport("wevi", wevi.module("wevi"));
 ```
+
+### Shared Library Dependency
+
