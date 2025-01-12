@@ -1,4 +1,5 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
 const webview = @cImport({
     @cInclude("webview.h");
@@ -96,9 +97,19 @@ pub const Hint = enum(u32) {
 
 /// # Updates the Size of the Native Window
 pub fn setSize(win: Window, width: u16, height: u16, hint: Hint) Error!void {
-    const w_hint: c_int = @intCast(@intFromEnum(hint));
-    const rv = webview.webview_set_size(win, width, height, w_hint);
-    if (rv != 0) return @"error"(rv);
+    switch (builtin.os.tag) {
+        .windows => {
+            const w_hint: c_int = @intCast(@intFromEnum(hint));
+            const rv = webview.webview_set_size(win, width, height, w_hint);
+            if (rv != 0) return @"error"(rv);
+        },
+        .macos => {
+            const w_hint = @intFromEnum(hint);
+            const rv = webview.webview_set_size(win, width, height, w_hint);
+            if (rv != 0) return @"error"(rv);
+        },
+        else => unreachable
+    }
 }
 
 /// # Loads HTML Content into the Webview

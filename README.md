@@ -8,13 +8,11 @@ Wevi is intended to be a high-level abstraction for cross-platform webview integ
 
 As of now, Wevi supports 64-bit **Windows and MacOS** (Apple silicon). Please create an issue if you need other platform support for your use case.
 
-### TODO
-
-Windows platform support.
-
 ## Dependency
 
-All of Wevi's dependencies are linked as static libraries. No additional steps are required!
+All of Wevi's dependencies are linked as static libraries on **MacOS**. No additional steps are required!
+
+On Windows, `webview.dll` is required on the final executable. You will find the necessary steps in the **Installation** section in the documentation.
 
 ## Documentation
 

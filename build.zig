@@ -52,6 +52,8 @@ pub fn build(b: *std.Build) void {
             }
         },
         .macos => {
+            exe.linkLibCpp();
+
             switch (target.query.cpu_arch orelse builtin.cpu.arch) {
                 .aarch64 => {
                     pkg.addObjectFile(b.path("libs/macOS/libwebview.a"));
