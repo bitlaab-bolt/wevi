@@ -38,3 +38,8 @@ lib.root_module.addImport("wevi", wevi.module("wevi"));
 
 ### Shared Library Dependency
 
+When your targeting windows platform:
+
+For nightly version download [webview.dll](https://github.com/bitlaab-bolt/wevi/blob/main/docs/assets/webview.dll) and put this to your final executables installation directory.
+
+For release version download `webview.dll` from the Release Tag.
