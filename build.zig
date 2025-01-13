@@ -32,7 +32,7 @@ pub fn build(b: *std.Build) void {
         .windows => {
             switch (target.query.cpu_arch orelse builtin.cpu.arch) {
                 .x86_64 => {
-                    pkg.addObjectFile(b.path("libs/windows/webview.lib"));
+                    pkg.addObjectFile(b.path("libs/windows/webviewdll.lib"));
                     pkg.linkSystemLibrary("ole32", .{});
                     pkg.linkSystemLibrary("user32", .{});
                     pkg.linkSystemLibrary("shell32", .{});
