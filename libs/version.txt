@@ -1,3 +1,8 @@
-Static Library Version
+Static Library Version on MacOS
 
 libwebview.a     [v0.12.0]
+
+
+Shared Library Version on Windows
+
+webviewdll.lib     [v0.12.0]

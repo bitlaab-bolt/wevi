@@ -5,7 +5,7 @@ const builtin = @import("builtin");
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{
-        .preferred_optimize_mode = .Debug
+        .preferred_optimize_mode = .ReleaseSafe
     });
 
     // Exposing as a dependency for other projects
@@ -40,7 +40,7 @@ pub fn build(b: *std.Build) void {
                     pkg.linkSystemLibrary("version", .{});
                     pkg.linkSystemLibrary("advapi32", .{});
 
-                    exe.addObjectFile(b.path("libs/windows/webview.lib"));
+                    exe.addObjectFile(b.path("libs/windows/webviewdll.lib"));
                     exe.linkSystemLibrary("ole32");
                     exe.linkSystemLibrary("user32");
                     exe.linkSystemLibrary("shell32");

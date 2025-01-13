@@ -3,7 +3,7 @@
 First import Wevi on your zig file.
 
 ```zig
-const wevi = @import("wevi");
+const wevi = @import("wevi").Wevi;
 ```
 
 Add the following dependency.
@@ -113,4 +113,20 @@ fn greet(
     </script>
 </body>
 </html>
+```
+
+## Build and Run the Project
+
+### Build on MacOs
+
+```sh
+zig build && \
+./zig-out/bin/wevi
+```
+
+### On Windows
+
+```sh
+zig build -Dtarget=x86_64-windows-msvc && \
+./zig-out/bin/wevi.exe
 ```

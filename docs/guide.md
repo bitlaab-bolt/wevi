@@ -10,6 +10,8 @@ If you are using previous release of Wevi for some reason, you can generate docu
 
 ## Building `webview` from Source (Windows)
 
+**Remarks:** Always use **MSVC** tool chain on windows for consistency.
+
 Make sure to build the source code via LLVM's `clang` compiler since Zig also uses `clang`. When compiling for the first time (on a freshly installed Windows), make sure to add necessary binaries from Visual Studio Build Tools to system environment variables.
 
 ### Watchout 01
