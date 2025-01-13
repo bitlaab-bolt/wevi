@@ -1,6 +1,7 @@
-.{ .name = "wevi", .version = "0.1.0", .dependencies = .{
+.{
+    .name = "wevi", .version = "0.1.0", .dependencies = .{
         .jsonic = .{
-            .url = "https://github.com/bitlaab-bolt/jsonic/archive/refs/heads/main.zip",
+            .url = "https://github.com/bitlaab-bolt/jsonic/archive/refs/tags/v0.1.0.zip",
             .hash = "12207a36220a981c77f18ab34dccc98d5ce29b4815f49447423124b44f0a78a86cc9",
         },
     },
