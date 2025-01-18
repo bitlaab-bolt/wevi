@@ -41,14 +41,14 @@ pub fn dispatch(
 
 /// # Native Handle of the Associated Window
 /// **Note:** Should be ignored when `create()` is called with a native window
-pub fn getNativeWindow(self: *Self) Error!webview.Window {
-    return try webview.getWindow(self.window);
+pub fn getNativeWindow(self: *Self) webview.Window {
+    return webview.getWindow(self.window);
 }
 
 /// # Get a Native Handle of Choice
 /// **Note:** Should be ignored when `create()` is called with a native window
-pub fn getNativeHandle(self: *Self, kind: u32) Error!webview.Window {
-    return try webview.getNativeHandle(self.window, kind);
+pub fn getNativeHandle(self: *Self, kind: u32) webview.Window {
+    return webview.getNativeHandle(self.window, kind);
 }
 
 /// # Updates the Title of the Native Window
