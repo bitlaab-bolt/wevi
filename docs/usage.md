@@ -121,12 +121,12 @@ fn greet(
 
 ```sh
 zig build && \
-./zig-out/bin/wevi
+./zig-out/bin/<your_app_name>
 ```
 
 ### On Windows
 
 ```sh
 zig build -Dtarget=x86_64-windows-msvc && \
-./zig-out/bin/wevi.exe
+./zig-out/bin/<your_app_name>.exe
 ```

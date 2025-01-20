@@ -1,9 +1,7 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-const webview = @cImport({
-    @cInclude("webview.h");
-});
+const webview = @cImport({ @cInclude("webview.h"); });
 
 
 pub const Error = error {
@@ -36,48 +34,39 @@ pub const Callback = ?*const fn(Window, Anything) callconv(.c) void;
 
 pub const BindCallback = ?*const fn([*c]const u8, [*c]const u8, Anything) callconv(.c) void;
 
-/// # Creates a New Webview Instance
-/// - `win` - Native window handle e.g., GtkWindow, NSWindow, HWND etc.
 pub fn create(debug: Inspect, win: Anything) Error!Window {
     const debug_mode = @intFromEnum(debug);
     return webview.webview_create(debug_mode, win);
 }
 
-/// # Destroys a Webview Instance and Closes the Native Window
 pub fn destroy(win: Window) Error!void {
     const rv = webview.webview_destroy(win);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Runs the Main Loop
 pub fn run(win: Window) Error!void {
     const rv = webview.webview_run(win);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Stops the Main Loop (Thread Safe)
 pub fn terminate(win: Window) Error!void {
     const rv = webview.webview_terminate(win);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Schedules a Function to be Invoked on the Run/Event Loop
 pub fn dispatch(win: Window, cbf: Callback, arg: Anything) Error!void {
     const rv = webview.webview_dispatch(win, cbf, arg);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Native Handle of the Associated Window
 pub fn getWindow(win: Window) Window {
     return webview.webview_get_window(win);
 }
 
-/// # Get a Native Handle of Choice
 pub fn getNativeHandle(win: Window, kind: u32) Window {
     return webview.webview_get_native_handle(win, kind);
 }
 
-/// # Updates the Title of the Native Window
 pub fn setTitle(win: Window, txt: []const u8) Error!void {
     const rv = webview.webview_set_title(win, txt.ptr);
     if (rv != 0) return @"error"(rv);
@@ -95,7 +84,6 @@ pub const Hint = enum(u32) {
   Fixed = 3
 };
 
-/// # Updates the Size of the Native Window
 pub fn setSize(win: Window, width: u16, height: u16, hint: Hint) Error!void {
     switch (builtin.os.tag) {
         .windows => {
@@ -112,33 +100,27 @@ pub fn setSize(win: Window, width: u16, height: u16, hint: Hint) Error!void {
     }
 }
 
-/// # Loads HTML Content into the Webview
 pub fn setHtml(win: Window, content: []const u8) Error!void {
     const rv = webview.webview_set_html(win, content.ptr);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Navigates Webview to the Given URL
-/// - Supports Http and File URI scheme
 pub fn navigate(win: Window, url: []const u8) Error!void {
     const rv = webview.webview_navigate(win, url.ptr);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Evaluates Arbitrary JS Code
+
 pub fn evalJs(win: Window, script: []const u8) Error!void {
     const rv = webview.webview_eval(win, script.ptr);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Injects JS Code to be Executed Upon Loading Page
 pub fn runJs(win: Window, script: []const u8) Error!void {
     const rv = webview.webview_init(win, script.ptr);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Binds a Function to a New Global JS Function
-/// - `name` - Function name in JS side
 pub fn bind(
     win: Window,
     name: []const u8,
@@ -149,16 +131,11 @@ pub fn bind(
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Removes a Binding
 pub fn unbind(win: Window, name: []const u8) Error!void {
     const rv = webview.webview_unbind(win, name.ptr);
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Responds to a Binding Call from the JS Side
-/// - `id` - Binding ID from the `BindCallback` function
-/// - `status` - **0** means succeed! any other value indicates an error
-/// - `result` - Must be JSON stringified string
 pub fn @"return"(
     win: Window,
     id: []const u8,
@@ -169,7 +146,6 @@ pub fn @"return"(
     if (rv != 0) return @"error"(rv);
 }
 
-/// # Current Webview Version Information
 pub fn version() Version {
     const info = webview.webview_version();
     return .{

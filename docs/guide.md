@@ -16,9 +16,9 @@ Make sure to build the source code via LLVM's `clang` compiler since Zig also us
 
 ### Watchout 01
 
-As of version **webview v0.12** ninja fails to build due to the following code section where multiple rules is generated for the same name. Make sure to update the `STATIC_LIBRARY_OUTPUT_NAME` on `core/CMakeLists.txt`.
+As of version **webview v0.12.0** ninja fails to build due to the following code section where multiple rules is generated for the same name. Make sure to update the `STATIC_LIBRARY_OUTPUT_NAME` on `core/CMakeLists.txt`.
 
-```txt
+```cmake
 # Core static library
 if(WEBVIEW_BUILD_STATIC_LIBRARY)
     # Change .lib file name for MSVC because otherwise it would be the same for shared and static

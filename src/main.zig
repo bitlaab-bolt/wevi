@@ -17,7 +17,7 @@ pub fn main() !void {
     const heap = gpa_mem.allocator();
 
     var wevi_win = try wevi.create(.On, null);
-    try wevi_win.title("Hello World!");
+    try wevi_win.title("Hello, World!");
 
     // Page Loading
     const cwd = try std.fs.cwd().realpathAlloc(heap, ".");
@@ -32,8 +32,6 @@ pub fn main() !void {
 
     try wevi_win.navigate(abs_path);
     try wevi_win.size(720, 480, .None);
-
-    try wevi_win.evalJs("window.backend_greet('hi')");
 
     var args = CallbackArgs { .heap = heap, .view = &wevi_win };
     try wevi_win.bind("greet", greet, @ptrCast(@constCast(&args)));

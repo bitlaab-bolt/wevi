@@ -3,10 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to the [Semantic Version](https://semver.org/) guideline.
 
-## [v0.1.0] - 2025-01-13
+## [v0.1.0] - 2025-01-20
 
-Supports both Windows and MacOS platforms.
+Supports both Windows (x64) and MacOS (Apple Silicon).
 
 ### Added
 
-- Barebone implementations
+- Bare bone implementations with full API binding (code coverage).

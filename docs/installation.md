@@ -2,15 +2,15 @@
 
 ## Prerequisite
 
-As of now, Wevi supports Windows and MacOS (Apple silicon).
+As of now, Wevi supports Windows (x64) and MacOS (Apple silicon).
 
-Make sure you have **Zig v0.13.0 / nightly** installed on your platform.
+Make sure you have **Zig v0.14.0 / nightly** installed on your platform.
 
 ## Installation
 
 Navigate to your project directory. e.g., `cd my_awesome_project`
 
-### Install the Nightly Version
+### Install the Alpha Version
 
 Fetch wevi as zig package dependency by running:
 
@@ -40,6 +40,6 @@ lib.root_module.addImport("wevi", wevi.module("wevi"));
 
 When your targeting windows platform:
 
-For nightly version download [webview.dll](https://github.com/bitlaab-bolt/wevi/blob/main/libs/windows/webview.dll) and put this to your final executables installation directory.
+For alpha version download [webview.dll](https://github.com/bitlaab-bolt/wevi/blob/main/libs/windows/webview.dll) and put this to your final executables installation directory.
 
-For release version download `webview.dll` from the Release Tag.
+For release version download `webview.dll` from the attachment section of the Release Tag.
