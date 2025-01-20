@@ -81,7 +81,7 @@ pub fn navigate(self: *Self, url: []const u8) Error!void {
 }
 
 /// # Evaluates Arbitrary JS Code
-/// **WARNING:** Doesn't work on macOs
+/// **WARNING:** WebKit doesn't allow arbitrary JS execution on macOS
 pub fn evalJs(self: *Self, script: []const u8) Error!void {
     try webview.evalJs(self.window, script);
 }
