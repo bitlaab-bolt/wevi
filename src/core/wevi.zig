@@ -69,7 +69,7 @@ pub fn size(
 }
 
 /// # Loads HTML Content into the Webview
-/// - Only useful for test purposes
+/// **Remarks:** `content` must be a **null** terminated string slice
 pub fn setHtml(self: *Self, content: []const u8) Error!void {
     try webview.setHtml(self.window, content);
 }
