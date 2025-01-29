@@ -156,6 +156,7 @@ pub fn version() Version {
 }
 
 /// # Converts Error Messages
+/// TODO: Handel this with only Error not Error!void
 fn @"error"(code: i32) Error!void {
     return switch (code) {
          1 => Error.Duplicate,
