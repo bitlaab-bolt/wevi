@@ -53,7 +53,7 @@ pub fn getNativeHandle(self: *Self, kind: u32) webview.Window {
 
 /// # Updates the Title of the Native Window
 /// **Note:** Should be ignored when `create()` is called with a native window
-pub fn title(self: *Self, txt: []const u8) Error!void {
+pub fn title(self: *Self, txt: []const u8) !void {
     try webview.setTitle(self.window, txt);
 }
 

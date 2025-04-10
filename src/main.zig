@@ -12,12 +12,18 @@ const CallbackArgs = struct {
 };
 
 pub fn main() !void {
-    var gpa_mem = std.heap.GeneralPurposeAllocator(.{}){};
+    var gpa_mem = std.heap.DebugAllocator(.{}){};
     defer std.debug.assert(gpa_mem.deinit() == .ok);
     const heap = gpa_mem.allocator();
 
+    const static_str = "Hello, World";
+    const name = try heap.alloc(u8, static_str.len);
+    defer heap.free(name);
+
+    std.mem.copyForwards(u8, name, static_str);
+
     var wevi_win = try wevi.create(.On, null);
-    try wevi_win.title("Hello, World!");
+    try wevi_win.title(name);
 
     // Page Loading
     const cwd = try std.fs.cwd().realpathAlloc(heap, ".");

@@ -1,20 +1,6 @@
-.{
-    .name = "wevi",
-    .version = "0.1.0",
-    .dependencies = .{
-        .jsonic = .{
-            .url = "https://github.com/bitlaab-bolt/jsonic/archive/refs/tags/v0.1.0.zip",
-            .hash = "12200f68f0749e70964b747654faad32784b31659f71dd3681c42a40cd9ccc11ff53",
-        },
+.{ .name = .wevi, .version = "0.1.0", .fingerprint = 0xd4bb497eaae4caa6, .dependencies = .{
+    .jsonic = .{
+        .url = "https://github.com/bitlaab-bolt/jsonic/archive/refs/tags/v0.3.1.zip",
+        .hash = "jsonic-0.3.1-Hz02HMMwAADgncRAxca43s5-Q3LIUVx30OjDyqz3bUEi",
     },
-    .paths = .{
-        "docs",
-        "libs",
-        "src",
-        "build.zig",
-        "build.zig.zon",
-        "CHANGELOG.md",
-        "LICENSE",
-        "README.md"
-    }
-}
+}, .paths = .{ "docs", "libs", "src", "build.zig", "build.zig.zon", "CHANGELOG.md", "LICENSE", "README.md" } }

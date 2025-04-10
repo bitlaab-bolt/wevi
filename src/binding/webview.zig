@@ -67,8 +67,11 @@ pub fn getNativeHandle(win: Window, kind: u32) Window {
     return webview.webview_get_native_handle(win, kind);
 }
 
-pub fn setTitle(win: Window, txt: []const u8) Error!void {
-    const rv = webview.webview_set_title(win, txt.ptr);
+pub fn setTitle(win: Window, name: []const u8) !void {
+    var buff: [128]u8 = undefined;
+    const name_z = try std.fmt.bufPrintZ(&buff, "{s}", .{name});
+
+    const rv = webview.webview_set_title(win, name_z.ptr);
     if (rv != 0) return @"error"(rv);
 }
 
