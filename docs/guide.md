@@ -18,8 +18,6 @@ zig build-lib -femit-docs=docs/zig-docs src/root.zig
 
 Now, clean up any unwanted generated file and make sure to link `zig-docs/index.html` to your `reference.md` file.
 
-**Remarks:** Make sure all source code file end with an `\n`. Otherwise doc generator will silently pass but the final webpage will throw an ambagious syntax error on console.
-
 ## Building `webview` from Source (Windows)
 
 **Remarks:** Always use **MSVC** tool chain on windows for consistency.
