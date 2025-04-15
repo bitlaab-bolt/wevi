@@ -1,5 +1,5 @@
-site_name: wevi v0.1.0
-site_url: https://mydomain.org/wevi
+site_name: wevi v0.5.0
+site_url: http://127.0.0.1/
 nav:
   - Getting Started: index.md
   - How to Install: installation.md
@@ -47,4 +47,4 @@ extra:
       link: https://www.linkedin.com/company/bitlaab
     - icon: fontawesome/brands/github
       link: https://github.com/bitlaab-bolt
-copyright: Copyright © 2024 bitlaab™
+copyright: Copyright © 2025 bitlaab™

@@ -2,6 +2,8 @@ const webview = @import("../binding/webview.zig");
 const Error = webview.Error;
 
 
+const StrZ = [:0]const u8;
+
 window: webview.Window,
 
 const Self = @This();
@@ -53,7 +55,7 @@ pub fn getNativeHandle(self: *Self, kind: u32) webview.Window {
 
 /// # Updates the Title of the Native Window
 /// **Note:** Should be ignored when `create()` is called with a native window
-pub fn title(self: *Self, txt: []const u8) !void {
+pub fn title(self: *Self, txt: StrZ) !void {
     try webview.setTitle(self.window, txt);
 }
 
@@ -70,52 +72,52 @@ pub fn size(
 
 /// # Loads HTML Content into the Webview
 /// **Remarks:** `content` must be a **null** terminated string slice
-pub fn setHtml(self: *Self, content: []const u8) Error!void {
+pub fn setHtml(self: *Self, content: StrZ) Error!void {
     try webview.setHtml(self.window, content);
 }
 
 /// # Navigates Webview to the Given URL
 /// - Supports Http and File URI scheme
-pub fn navigate(self: *Self, url: []const u8) Error!void {
+pub fn navigate(self: *Self, url: StrZ) Error!void {
     try webview.navigate(self.window, url);
 }
 
-/// # Evaluates Arbitrary JS Code
-/// **WARNING:** WebKit doesn't allow arbitrary JS execution on macOS
-pub fn evalJs(self: *Self, script: []const u8) Error!void {
+/// # Evaluates Arbitrary JavaScript Code
+/// **WARNING:** WebKit doesn't allow arbitrary JavaScript execution on macOS
+pub fn evalJs(self: *Self, script: StrZ) Error!void {
     try webview.evalJs(self.window, script);
 }
 
-/// # Injects JS Code to be Executed Upon Loading Page
-pub fn runJs(self: *Self, script: []const u8) Error!void {
+/// # Injects JavaScript Code to be Executed Upon Loading Page
+pub fn runJs(self: *Self, script: StrZ) Error!void {
     try webview.runJs(self.window, script);
 }
 
-/// # Binds a Function to a New Global JS Function
-/// - `name` - Function name in JS side
+/// # Binds a Function to a New Global JavaScript Function
+/// - `name` - Function name in the JavaScript side (frontend).
 pub fn bind(
     self: *Self,
-    name: []const u8,
+    name: StrZ,
     cbf: webview.BindCallback,
     arg: webview.Anything
 ) Error!void {
     try webview.bind(self.window, name, cbf, arg);
 }
 
-/// # Removes a Binding
-pub fn unbind(self: *Self, name: []const u8,) Error!void {
+/// # Removes a Given Binding
+pub fn unbind(self: *Self, name: StrZ) Error!void {
     try webview.unbind(self.window, name);
 }
 
-/// # Responds to a Binding Call from the JS Side
+/// # Responds to a Binding Call from the JavaScript Side
 /// - `id` - Binding ID from the `BindCallback` function
 /// - `status` - **0** means succeed! any other value indicates an error
-/// - `result` - Must be JSON stringified string
+/// - `result` - Should be a JSON stringified string
 pub fn response(
     self: *Self,
-    bind_id: []const u8,
+    bind_id: StrZ,
     status_code: i32,
-    result: []const u8
+    result: StrZ
 ) Error!void {
     try webview.@"return"(self.window, bind_id, status_code, result);
 }

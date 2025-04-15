@@ -1,42 +1,41 @@
 # How to use
 
-First import Wevi on your zig file.
+First, import Wevi into your Zig source file.
 
 ```zig
-const wevi = @import("wevi").Wevi;
+const wevi = @import("wevi");
+const Wevi = wevi.Wevi;
 ```
 
-Add the following dependency.
+Now, import Jsonic into your Zig source file.
 
 ```zig
-// See documentation at - https://bitlaabjsonic.web.app/
 const jsonic = @import("jsonic");
 ```
 
-Now, define the following struct in global scope outside `main()`.
+Let's define the following struct in global scope, outside the `main` function.
 
 ```zig
 const CallbackArgs = struct {
     heap: std.mem.Allocator,
-    view: *wevi
+    view: *Wevi
 };
 ```
 
 ## Create a Window
 
 ```zig
-var gpa_mem = std.heap.GeneralPurposeAllocator(.{}){};
+var gpa_mem = std.heap.DebugAllocator(.{})init;
 defer std.debug.assert(gpa_mem.deinit() == .ok);
 const heap = gpa_mem.allocator();
 
-var wevi_win = try wevi.create(.On, null);
+var wevi_win = try Wevi.create(.On, null);
 try wevi_win.title("Hello World!");
 
 // Page Loading
 const cwd = try std.fs.cwd().realpathAlloc(heap, ".");
 defer heap.free(cwd);
 
-// Change to your file path
 const path = "tests/index.html";
 const abs_path = try std.fmt.allocPrintZ(
     heap, "file://{s}/{s}", .{cwd, path}

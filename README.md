@@ -1,6 +1,6 @@
 # wevi
 
-**Webview library bindings for Zig.**
+**Webview Library Binding**
 
 Wevi is intended to be a high-level abstraction for cross-platform webview integration. Along with abstraction, Wevi exposes underlying API bindings for more custom-tailored functionality.
 
@@ -10,9 +10,13 @@ As of now, Wevi supports **Windows** (x64) and **MacOS** (Apple silicon). Please
 
 ## Dependency
 
-All of Wevi's dependencies are linked as static libraries on MacOS. No additional steps are required!
+### MacOS
 
-On Windows, `webview.dll` is required on the final executable. You will find the necessary steps in the **Installation** section in the documentation.
+All dependencies are linked as static libraries. No additional steps are required!
+
+### Windows
+
+The final executable requires `webview.dll`. The necessary steps are in the documentation's **Installation** section.
 
 ## Documentation
 

@@ -67,11 +67,8 @@ pub fn getNativeHandle(win: Window, kind: u32) Window {
     return webview.webview_get_native_handle(win, kind);
 }
 
-pub fn setTitle(win: Window, name: []const u8) !void {
-    var buff: [128]u8 = undefined;
-    const name_z = try std.fmt.bufPrintZ(&buff, "{s}", .{name});
-
-    const rv = webview.webview_set_title(win, name_z.ptr);
+pub fn setTitle(win: Window, name: [:0]const u8) !void {
+    const rv = webview.webview_set_title(win, name);
     if (rv != 0) return @"error"(rv);
 }
 
@@ -103,49 +100,49 @@ pub fn setSize(win: Window, width: u16, height: u16, hint: Hint) Error!void {
     }
 }
 
-pub fn setHtml(win: Window, content: []const u8) Error!void {
-    const rv = webview.webview_set_html(win, content.ptr);
+pub fn setHtml(win: Window, content: [:0]const u8) Error!void {
+    const rv = webview.webview_set_html(win, content);
     if (rv != 0) return @"error"(rv);
 }
 
-pub fn navigate(win: Window, url: []const u8) Error!void {
-    const rv = webview.webview_navigate(win, url.ptr);
+pub fn navigate(win: Window, url: [:0]const u8) Error!void {
+    const rv = webview.webview_navigate(win, url);
     if (rv != 0) return @"error"(rv);
 }
 
 
-pub fn evalJs(win: Window, script: []const u8) Error!void {
-    const rv = webview.webview_eval(win, script.ptr);
+pub fn evalJs(win: Window, script: [:0]const u8) Error!void {
+    const rv = webview.webview_eval(win, script);
     if (rv != 0) return @"error"(rv);
 }
 
-pub fn runJs(win: Window, script: []const u8) Error!void {
-    const rv = webview.webview_init(win, script.ptr);
+pub fn runJs(win: Window, script: [:0]const u8) Error!void {
+    const rv = webview.webview_init(win, script);
     if (rv != 0) return @"error"(rv);
 }
 
 pub fn bind(
     win: Window,
-    name: []const u8,
+    name: [:0]const u8,
     cbf: BindCallback,
     arg: Anything
 ) Error!void {
-    const rv = webview.webview_bind(win, name.ptr, cbf, arg);
+    const rv = webview.webview_bind(win, name, cbf, arg);
     if (rv != 0) return @"error"(rv);
 }
 
-pub fn unbind(win: Window, name: []const u8) Error!void {
-    const rv = webview.webview_unbind(win, name.ptr);
+pub fn unbind(win: Window, name: [:0]const u8) Error!void {
+    const rv = webview.webview_unbind(win, name);
     if (rv != 0) return @"error"(rv);
 }
 
 pub fn @"return"(
     win: Window,
-    id: []const u8,
+    id: [:0]const u8,
     status: i32,
-    result: []const u8
+    result: [:0]const u8
 ) Error!void {
-    const rv = webview.webview_return(win, id.ptr, status, result.ptr);
+    const rv = webview.webview_return(win, id, status, result);
     if (rv != 0) return @"error"(rv);
 }
 

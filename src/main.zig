@@ -1,28 +1,25 @@
 const std = @import("std");
 
-const wevi = @import("./core/wevi.zig");
+const wevi = @import("wevi");
+const Wevi = wevi.Wevi;
 
-// See documentation at - https://bitlaabjsonic.web.app/
 const jsonic = @import("jsonic");
 
 
-const CallbackArgs = struct {
-    heap: std.mem.Allocator,
-    view: *wevi
-};
+const CallbackArgs = struct { heap: std.mem.Allocator, view: *Wevi };
 
 pub fn main() !void {
-    var gpa_mem = std.heap.DebugAllocator(.{}){};
+    var gpa_mem = std.heap.DebugAllocator(.{}).init;
     defer std.debug.assert(gpa_mem.deinit() == .ok);
     const heap = gpa_mem.allocator();
 
-    const static_str = "Hello, World";
-    const name = try heap.alloc(u8, static_str.len);
+    const static_str = "Hello, World!";
+    const name = try heap.allocSentinel(u8, static_str.len, 0);
     defer heap.free(name);
 
     std.mem.copyForwards(u8, name, static_str);
 
-    var wevi_win = try wevi.create(.On, null);
+    var wevi_win = try Wevi.create(.On, null);
     try wevi_win.title(name);
 
     // Page Loading
@@ -46,14 +43,10 @@ pub fn main() !void {
     try wevi_win.destroy();
 }
 
-
+const StrC = [*c]const u8;
 const Info = struct { name: []const u8, age: u8 };
 
-fn greet(
-    id: [*c]const u8,
-    req: [*c]const u8,
-    args: ?*anyopaque
-) callconv(.c) void {
+fn greet(id: StrC, req: StrC, args: ?*anyopaque) callconv(.c) void {
     std.debug.print("ID {s}\n", .{id});
     std.debug.print("REQ {s}\n", .{req});
 

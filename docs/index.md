@@ -1,6 +1,6 @@
 # Getting Started
 
-**Webview library bindings for Zig**
+**Webview Library Binding**
 
 Wevi is intended to be a high-level abstraction for cross-platform webview integration. Along with abstraction, Wevi exposes underlying API bindings for more custom-tailored functionality.
 
