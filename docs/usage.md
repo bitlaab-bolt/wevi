@@ -13,13 +13,10 @@ Now, import Jsonic into your Zig source file.
 const jsonic = @import("jsonic");
 ```
 
-Let's define the following struct in global scope, outside the `main` function.
+Than, define the callback structure.
 
 ```zig
-const CallbackArgs = struct {
-    heap: std.mem.Allocator,
-    view: *Wevi
-};
+const CallbackArgs = struct { heap: std.mem.Allocator, view: *Wevi };
 ```
 
 ## Create a Window
@@ -55,13 +52,10 @@ try wevi_win.destroy();
 ### Bind Callback Function
 
 ```zig
+const StrC = [*c]const u8;
 const Info = struct { name: []const u8, age: u8 };
 
-fn greet(
-    id: [*c]const u8,
-    req: [*c]const u8,
-    args: ?*anyopaque
-) callconv(.c) void {
+fn greet(id: StrC, req: StrC, args: ?*anyopaque) callconv(.c) void {
     std.debug.print("ID {s}\n", .{id});
     std.debug.print("REQ {s}\n", .{req});
 
@@ -88,6 +82,8 @@ fn greet(
 }
 ```
 ## Setup HTML Page
+
+Let's create a **test** directory on your project and put this `app.html`.
 
 ```html title="app.html"
 <!DOCTYPE html>
