@@ -2,11 +2,11 @@
 
 **Webview Library Binding**
 
-Wevi is intended to be a high-level abstraction for cross-platform webview integration. Along with abstraction, Wevi exposes underlying API bindings for more custom-tailored functionality.
+A cross-platform library for embedding webviews. Use the high-level API for convenience, or drop down to the exposed native bindings when you need custom control.
 
 ## Platform Support
 
-As of now, Wevi supports **Windows** (x64) and **MacOS** (Apple silicon). Please create an issue if you need other platform support for your use case.
+Supports **Windows** (x64) and **MacOS** (Apple silicon). Please create an issue if you need other platform support for your use case.
 
 ## Dependency
 
@@ -20,4 +20,4 @@ The final executable requires `webview.dll`. The necessary steps are in the docu
 
 ## Documentation
 
-For most up-to-date documentation see - [**Wevi Documentation**](https://bitlaabwevi.web.app/).
+For most up-to-date documentation see - [**Wevi Documentation**](https://bitlaab.com/api-doc?pkg=wevi).

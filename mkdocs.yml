@@ -1,5 +1,5 @@
-site_name: wevi v0.6.0
-site_url: http://127.0.0.1/
+site_name: wevi v1.0.0
+site_url: http://0.0.0.0:8001
 nav:
   - Getting Started: index.md
   - How to Install: installation.md
@@ -15,8 +15,8 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
 theme:
-  logo: assets/bitlaab/logo.png
-  favicon: assets/bitlaab/favicon.png
+  logo: asset/bitlaab/logo.png
+  favicon: asset/bitlaab/favicon.png
   homepage: https://bitlaab.com
   name: material
   features:

@@ -25,6 +25,10 @@ Here we write upgrading notes and make them as straightforward as possible.
 
 ## [v0.6.0] - 2026-01-29
 
+TODO: Update the latest changes.
+
+## [v0.6.0] - 2026-01-29
+
 Updating underlying `jsonic` package version.
 
 ## [v0.5.0] - 2025-04-15

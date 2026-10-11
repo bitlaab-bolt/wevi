@@ -1,7 +1,7 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-const webview = @cImport({ @cInclude("webview.h"); });
+const webview = @import("webview");
 
 
 pub const Error = error {

@@ -1,5 +1,5 @@
 //! # Webview Library Binding
-//! - See documentation at - https://bitlaabwevi.web.app/
+//! - See documentation at - https://bitlaab.com/api-doc?pkg=wevi
 
 pub const Wevi = @import("./core/wevi.zig");
 
