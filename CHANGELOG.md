@@ -23,7 +23,7 @@ Here we write upgrading notes and make them as straightforward as possible.
 - A short description for fixed item n
 
 
-## [v0.6.0] - 2026-01-29
+## [v1.0.0] - 2026-10-11
 
 TODO: Update the latest changes.
 

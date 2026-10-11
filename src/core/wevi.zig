@@ -10,6 +10,9 @@ const Self = @This();
 
 /// # Creates a New Webview Instance
 /// - `win` - Native window handle e.g., GtkWindow, NSWindow, HWND etc.
+/// **Remarks:** On Win32 a pointer to `HWND` is also accepted for backward
+/// compatibility. When non-null, the window and application lifecycle are
+/// managed by the caller e.g., the main loop should be driven by the caller.
 pub fn create(debug: webview.Inspect, win: ?*anyopaque) Error!Self {
     return .{.window = try webview.create(debug, win) };
 }
@@ -42,25 +45,24 @@ pub fn dispatch(
 }
 
 /// # Native Handle of the Associated Window
-/// **Note:** Should be ignored when `create()` is called with a native window
 pub fn getNativeWindow(self: *Self) webview.Window {
     return webview.getWindow(self.window);
 }
 
 /// # Get a Native Handle of Choice
-/// **Note:** Should be ignored when `create()` is called with a native window
-pub fn getNativeHandle(self: *Self, kind: u32) webview.Window {
+pub fn getNativeHandle(
+    self: *Self,
+    kind: webview.NativeHandleKind
+) webview.Window {
     return webview.getNativeHandle(self.window, kind);
 }
 
 /// # Updates the Title of the Native Window
-/// **Note:** Should be ignored when `create()` is called with a native window
-pub fn title(self: *Self, txt: StrZ) !void {
+pub fn title(self: *Self, txt: StrZ) Error!void {
     try webview.setTitle(self.window, txt);
 }
 
-// # Updates the Size of the Native Window
-/// **Note:** Should be ignored when `create()` is called with a native window
+/// # Updates the Size of the Native Window
 pub fn size(
     self: *Self,
     width: u16,
@@ -125,4 +127,9 @@ pub fn response(
 /// # Current Webview Version Information
 pub fn version() webview.Version {
     return webview.version();
+}
+
+test "version information is available" {
+    const v = version();
+    _ = v;
 }

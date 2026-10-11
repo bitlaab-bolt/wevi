@@ -1,5 +1,4 @@
 const std = @import("std");
-const builtin = @import("builtin");
 
 const webview = @import("webview");
 
@@ -36,7 +35,9 @@ pub const BindCallback = ?*const fn([*c]const u8, [*c]const u8, Anything) callco
 
 pub fn create(debug: Inspect, win: Anything) Error!Window {
     const debug_mode = @intFromEnum(debug);
-    return webview.webview_create(debug_mode, win);
+    // The underlying C API reports creation failure only via a null return
+    // (e.g. missing WebView2 runtime on Windows), so map it to an error here.
+    return webview.webview_create(debug_mode, win) orelse Error.Unspecified;
 }
 
 pub fn destroy(win: Window) Error!void {
@@ -63,8 +64,8 @@ pub fn getWindow(win: Window) Window {
     return webview.webview_get_window(win);
 }
 
-pub fn getNativeHandle(win: Window, kind: u32) Window {
-    return webview.webview_get_native_handle(win, kind);
+pub fn getNativeHandle(win: Window, kind: NativeHandleKind) Window {
+    return webview.webview_get_native_handle(win, @intFromEnum(kind));
 }
 
 pub fn setTitle(win: Window, name: [:0]const u8) !void {
@@ -84,20 +85,20 @@ pub const Hint = enum(u32) {
   Fixed = 3
 };
 
+/// # Native Handle Kind
+pub const NativeHandleKind = enum(u32) {
+  /// Top-level window e.g., NSWindow pointer (macOS), HWND (Windows)
+  UiWindow = 0,
+  /// Browser widget e.g., NSView pointer (macOS), HWND (Windows)
+  UiWidget = 1,
+  /// Browser controller e.g., WKWebView pointer (macOS), ICoreWebView2Controller pointer (Windows)
+  BrowserController = 2
+};
+
 pub fn setSize(win: Window, width: u16, height: u16, hint: Hint) Error!void {
-    switch (builtin.os.tag) {
-        .windows => {
-            const w_hint: c_int = @intCast(@intFromEnum(hint));
-            const rv = webview.webview_set_size(win, width, height, w_hint);
-            if (rv != 0) return @"error"(rv);
-        },
-        .macos => {
-            const w_hint = @intFromEnum(hint);
-            const rv = webview.webview_set_size(win, width, height, w_hint);
-            if (rv != 0) return @"error"(rv);
-        },
-        else => unreachable
-    }
+    const w_hint: c_int = @intCast(@intFromEnum(hint));
+    const rv = webview.webview_set_size(win, width, height, w_hint);
+    if (rv != 0) return @"error"(rv);
 }
 
 pub fn setHtml(win: Window, content: [:0]const u8) Error!void {
@@ -155,9 +156,8 @@ pub fn version() Version {
     };
 }
 
-/// # Converts Error Messages
-/// TODO: Handel this with only Error not Error!void
-fn @"error"(code: i32) Error!void {
+/// # Converts Error Codes
+fn @"error"(code: i32) Error {
     return switch (code) {
          1 => Error.Duplicate,
          2 => Error.NotFound,

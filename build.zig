@@ -36,7 +36,8 @@ pub fn build(b: *std.Build) void {
     const app = "wevi";
     const exe = b.addExecutable(.{.name = app, .root_module = main});
 
-    // Adding cross-platform dependency
+    // Adding cross-platform dependency (module link objects propagate to
+    // every artifact that imports this module, so they are only set here)
     switch (target.query.os_tag orelse builtin.os.tag) {
         .macos => {
             exe.root_module.link_libcpp = true;
@@ -45,11 +46,6 @@ pub fn build(b: *std.Build) void {
                 .aarch64 => {
                     pkg.addObjectFile(b.path("libs/macOS/libwebview.a"));
                     pkg.linkFramework("WebKit", .{});
-
-                    exe.root_module.addObjectFile(
-                        b.path("libs/macOS/libwebview.a")
-                    );
-                    exe.root_module.linkFramework("WebKit", .{});
                 },
                 else => @panic("Unsupported architecture!")
             }
@@ -66,16 +62,6 @@ pub fn build(b: *std.Build) void {
                     pkg.linkSystemLibrary("shlwapi", .{});
                     pkg.linkSystemLibrary("version", .{});
                     pkg.linkSystemLibrary("advapi32", .{});
-
-                    exe.root_module.addObjectFile(
-                        b.path("libs/windows/webviewdll.lib")
-                    );
-                    exe.root_module.linkSystemLibrary("ole32", .{});
-                    exe.root_module.linkSystemLibrary("user32", .{});
-                    exe.root_module.linkSystemLibrary("shell32", .{});
-                    exe.root_module.linkSystemLibrary("shlwapi", .{});
-                    exe.root_module.linkSystemLibrary("version", .{});
-                    exe.root_module.linkSystemLibrary("advapi32", .{});
                 },
                 else => @panic("Unsupported architecture!")
             }
@@ -96,4 +82,10 @@ pub fn build(b: *std.Build) void {
 
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&run_cmd.step);
+
+    // Unit tests for the wevi module
+    const lib_tests = b.addTest(.{.root_module = pkg});
+    const run_lib_tests = b.addRunArtifact(lib_tests);
+    const test_step = b.step("test", "Run unit tests");
+    test_step.dependOn(&run_lib_tests.step);
 }
