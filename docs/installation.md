@@ -36,6 +36,6 @@ lib.root_module.addImport("wevi", wevi.module("wevi"));
 
 When you're targeting the Windows platform:
 
-For nightly version download [webview.dll](https://github.com/bitlaab-bolt/wevi/blob/main/libs/windows/webview.dll) and put this in your final executable's installation directory.
+For nightly version download [webview.dll](https://github.com/bitlaab-bolt/wevi/blob/main/libs/windows/webview.dll) and put this in your final executables installation directory.
 
 For the release version, download `webview.dll` from the attachment section of the Release Tag.

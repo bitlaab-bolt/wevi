@@ -1,7 +1,4 @@
-const std = @import("std");
-
 const webview = @import("webview");
-
 
 pub const Error = error {
     /// Operation canceled
@@ -41,23 +38,19 @@ pub fn create(debug: Inspect, win: Anything) Error!Window {
 }
 
 pub fn destroy(win: Window) Error!void {
-    const rv = webview.webview_destroy(win);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_destroy(win));
 }
 
 pub fn run(win: Window) Error!void {
-    const rv = webview.webview_run(win);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_run(win));
 }
 
 pub fn terminate(win: Window) Error!void {
-    const rv = webview.webview_terminate(win);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_terminate(win));
 }
 
 pub fn dispatch(win: Window, cbf: Callback, arg: Anything) Error!void {
-    const rv = webview.webview_dispatch(win, cbf, arg);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_dispatch(win, cbf, arg));
 }
 
 pub fn getWindow(win: Window) Window {
@@ -68,9 +61,8 @@ pub fn getNativeHandle(win: Window, kind: NativeHandleKind) Window {
     return webview.webview_get_native_handle(win, @intFromEnum(kind));
 }
 
-pub fn setTitle(win: Window, name: [:0]const u8) !void {
-    const rv = webview.webview_set_title(win, name);
-    if (rv != 0) return @"error"(rv);
+pub fn setTitle(win: Window, name: [:0]const u8) Error!void {
+    try check(webview.webview_set_title(win, name));
 }
 
 /// # Window Size Hints
@@ -96,30 +88,25 @@ pub const NativeHandleKind = enum(u32) {
 };
 
 pub fn setSize(win: Window, width: u16, height: u16, hint: Hint) Error!void {
-    const w_hint: c_int = @intCast(@intFromEnum(hint));
-    const rv = webview.webview_set_size(win, width, height, w_hint);
-    if (rv != 0) return @"error"(rv);
+    const w_hint: c_uint = @intCast(@intFromEnum(hint));
+    try check(webview.webview_set_size(win, width, height, w_hint));
 }
 
 pub fn setHtml(win: Window, content: [:0]const u8) Error!void {
-    const rv = webview.webview_set_html(win, content);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_set_html(win, content));
 }
 
 pub fn navigate(win: Window, url: [:0]const u8) Error!void {
-    const rv = webview.webview_navigate(win, url);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_navigate(win, url));
 }
 
 
 pub fn evalJs(win: Window, script: [:0]const u8) Error!void {
-    const rv = webview.webview_eval(win, script);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_eval(win, script));
 }
 
 pub fn runJs(win: Window, script: [:0]const u8) Error!void {
-    const rv = webview.webview_init(win, script);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_init(win, script));
 }
 
 pub fn bind(
@@ -128,13 +115,11 @@ pub fn bind(
     cbf: BindCallback,
     arg: Anything
 ) Error!void {
-    const rv = webview.webview_bind(win, name, cbf, arg);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_bind(win, name, cbf, arg));
 }
 
 pub fn unbind(win: Window, name: [:0]const u8) Error!void {
-    const rv = webview.webview_unbind(win, name);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_unbind(win, name));
 }
 
 pub fn @"return"(
@@ -143,17 +128,21 @@ pub fn @"return"(
     status: i32,
     result: [:0]const u8
 ) Error!void {
-    const rv = webview.webview_return(win, id, status, result);
-    if (rv != 0) return @"error"(rv);
+    try check(webview.webview_return(win, id, status, result));
 }
 
 pub fn version() Version {
     const info = webview.webview_version();
     return .{
-        .major = @as(u8, @intCast(info.*.version.major)),
-        .minor = @as(u8, @intCast(info.*.version.minor)),
-        .patch = @as(u8, @intCast(info.*.version.patch))
+        .major = @intCast(info.*.version.major),
+        .minor = @intCast(info.*.version.minor),
+        .patch = @intCast(info.*.version.patch)
     };
+}
+
+/// # Checks a C API Result and Maps it to an Error
+fn check(rv: i32) Error!void {
+    if (rv != 0) return @"error"(rv);
 }
 
 /// # Converts Error Codes
