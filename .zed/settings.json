@@ -1,16 +1,19 @@
-// Folder-specific settings
-//
-// For a full list of overridable settings, and general information on folder-specific settings,
-// see the documentation: https://zed.dev/docs/configuring-zed#settings-files
+// # Project Specific Settings
+// - For all overridable settings, see https://zed.dev/docs/configuring-zed
+
 {
     "lsp": {
         "zls": {
             "binary": {
-                "path": "/Users/al-mehedi/Public/zls-0.17.0/zig-out/bin/zls"
+                "path": "/Users/al-mehedi/Public/zls/zig-out/bin/zls"
             },
-            "initialization_options": {
-                "zig_exe_path": "/Users/al-mehedi/Public/zig-0.17.0/zig"
-            }
+            "settings": {
+                "zls": {
+                    "zig_exe_path": "/Users/al-mehedi/Public/zig/zig",
+                    "enable_build_on_save": true,
+                    "build_on_save_step": "install"
+                }
+            },
         }
     }
 }
